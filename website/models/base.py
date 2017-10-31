@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from contextlib import contextmanager
+from authlib.client.flask import OAuth
 from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy
 
 
@@ -17,6 +18,7 @@ class SQLAlchemy(_SQLAlchemy):
 
 
 db = SQLAlchemy()
+oauth = OAuth()
 
 
 class Base(db.Model):
