@@ -33,8 +33,16 @@ class User(Base):
             del session['sid']
 
     @classmethod
-    def get_or_create(cls, token):
-        email = token.get('email')
+    def get_or_create(cls, profile):
+        email = profile.get('email')
+        user = cls.query.filter_by(email=email).first()
+        if user:
+            return user
+        name = profile.get('name')
+        user = cls(email=email, name=name)
+        with db.auto_commit():
+            db.session.add(user)
+        return user
 
 
 class Connect(Base):
