@@ -15,11 +15,9 @@ def login(name):
 @bp.route('/authorize/<name>')
 def authorize(name):
     service = _get_service_or_404(name)
-    token = service.authorize_response()
-    profile = service.fetch_profile()
+    token = service.authorize_access_token()
+    profile = service.fetch_user()
     user = User.get_or_create(profile)
-    # append extra info to token model
-    token.update(profile)
     Connect.create_token(name, token, user)
     user.login()
     return redirect(url_for('.view', name=name))

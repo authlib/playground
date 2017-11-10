@@ -1,6 +1,5 @@
 import time
 import datetime
-from authlib.client.flask import RemoteApp
 from flask import g, session, json
 from sqlalchemy import Column
 from sqlalchemy import UniqueConstraint
@@ -34,12 +33,10 @@ class User(Base):
 
     @classmethod
     def get_or_create(cls, profile):
-        email = profile.get('email')
-        user = cls.query.filter_by(email=email).first()
+        user = cls.query.filter_by(email=profile.email).first()
         if user:
             return user
-        name = profile.get('name')
-        user = cls(email=email, name=name)
+        user = cls(email=profile.email, name=profile.name)
         with db.auto_commit():
             db.session.add(user)
         return user
@@ -107,10 +104,6 @@ class Connect(Base):
         with db.auto_commit():
             db.session.add(conn)
         return conn
-
-
-# register token model
-RemoteApp.token_model = Connect
 
 
 def get_current_user():
