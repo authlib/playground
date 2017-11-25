@@ -53,9 +53,9 @@ class Connect(Base):
     user_id = Column(Integer, nullable=False)
     app = Column(String(20), nullable=False)
     token_type = Column(String(20))
-    access_token = Column(String(48), nullable=False)
+    access_token = Column(String(255), nullable=False)
     # refresh_token or access_token_secret
-    alt_token = Column(String(48))
+    alt_token = Column(String(255))
     extras = Column(Text)
     expires_at = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
@@ -72,12 +72,6 @@ class Connect(Base):
             token_type=self.token_type,
             expires_at=self.expires_at,
         )
-
-    @classmethod
-    def fetch_token(cls, app):
-        user = get_current_user()
-        conn = cls.query.filter_by(user_id=user.id, app=app).first()
-        return conn.to_dict()
 
     @classmethod
     def create_token(cls, app, token, user):
@@ -122,3 +116,10 @@ def get_current_user():
 
     g.current_user = user
     return user
+
+
+def fetch_token(app):
+    user = get_current_user()
+    conn = Connect.query.filter_by(
+        user_id=user.id, app=app).first()
+    return conn.to_dict()
