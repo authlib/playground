@@ -3,7 +3,7 @@ from flask import url_for, redirect
 from authlib.client.apps import google
 from ..models import User, Connect
 
-bp = Blueprint(__name__, 'account')
+bp = Blueprint('account', __name__)
 
 
 @bp.route('/login')

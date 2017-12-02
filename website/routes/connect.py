@@ -3,7 +3,7 @@ from flask import url_for, abort, redirect
 from ..auth import require_login, current_user
 from ..models import oauth, Connect
 
-bp = Blueprint(__name__, 'connect')
+bp = Blueprint('connect', __name__)
 
 
 @bp.route('/bind/<name>')

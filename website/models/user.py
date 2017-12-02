@@ -45,13 +45,13 @@ class User(Base):
 class Connect(Base):
     __tablename__ = 'connect'
     __table_args__ = (
-        UniqueConstraint('user_id', 'app', name='uc_connect'),
+        UniqueConstraint('user_id', 'name', name='uc_connect'),
     )
     OAUTH1_TOKEN_TYPE = 'oauth1.0'
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, nullable=False)
-    app = Column(String(20), nullable=False)
+    name = Column(String(20), nullable=False)
     token_type = Column(String(20))
     access_token = Column(String(255), nullable=False)
     # refresh_token or access_token_secret
@@ -74,11 +74,11 @@ class Connect(Base):
         )
 
     @classmethod
-    def create_token(cls, app, token, user):
+    def create_token(cls, name, token, user):
         data = token.copy()
-        conn = cls.query.filter_by(user_id=user.id, app=app).first()
+        conn = cls.query.filter_by(user_id=user.id, name=name).first()
         if not conn:
-            conn = cls(user_id=user.id, app=app)
+            conn = cls(user_id=user.id, name=name)
 
         if 'oauth_token' in data:
             # save for OAuth 1
@@ -111,15 +111,15 @@ def get_current_user():
 
     user = User.query.get(sid)
     if not user:
-        User.logout_user()
+        User.logout()
         return None
 
     g.current_user = user
     return user
 
 
-def fetch_token(app):
+def fetch_token(name):
     user = get_current_user()
     conn = Connect.query.filter_by(
-        user_id=user.id, app=app).first()
+        user_id=user.id, name=name).first()
     return conn.to_dict()
