@@ -1,7 +1,7 @@
 SECRET_KEY = 'your-secret'
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite'
-AUTHLIB_CACHE_TYPE = 'simple'
+OAUTH_CLIENT_CACHE_TYPE = 'simple'
 
 GOOGLE_CLIENT_KEY = ''
 GOOGLE_CLIENT_SECRET = ''
