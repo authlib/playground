@@ -1,6 +1,6 @@
 from functools import wraps
 from werkzeug.local import LocalProxy
-from flask import url_for, redirect
+from flask import url_for, redirect, request
 from .models import get_current_user
 
 
