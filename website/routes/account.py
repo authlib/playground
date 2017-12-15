@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import url_for, redirect
 from authlib.client.apps import google
+from .. import auth
 from ..models import User, Connect
 
 bp = Blueprint('account', __name__)
@@ -18,5 +19,5 @@ def authorize():
     profile = google.parse_openid(token)
     user = User.get_or_create(profile)
     Connect.create_token('google', token, user)
-    user.login()
+    auth.login(user)
     return redirect('/')

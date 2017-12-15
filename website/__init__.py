@@ -2,7 +2,8 @@ from authlib.client.apps import (
     twitter, github, google, facebook
 )
 from ._flask import create_flask_app
-from .models import db, oauth
+from .models import db
+from .auth import oauth
 from . import routes
 
 

@@ -1,6 +1,7 @@
 import time
 import datetime
-from flask import g, session, json
+from flask import json
+from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column
 from sqlalchemy import UniqueConstraint
 from sqlalchemy import (
@@ -14,6 +15,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     email = Column(String(255), unique=True, nullable=False)
+    _password = Column('password', String(100))
     name = Column(String(80))
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = Column(
@@ -22,14 +24,18 @@ class User(Base):
         onupdate=datetime.datetime.utcnow,
     )
 
-    def login(self):
-        session['sid'] = self.id
-        session.permanent = True
+    @property
+    def password(self):
+        return self._password
 
-    @staticmethod
-    def logout():
-        if 'sid' in session:
-            del session['sid']
+    @password.setter
+    def password(self, raw):
+        self._password = generate_password_hash(raw)
+
+    def check_password(self, raw):
+        if not self._password:
+            return False
+        return check_password_hash(self._password, raw)
 
     @classmethod
     def get_or_create(cls, profile):
@@ -98,28 +104,3 @@ class Connect(Base):
         with db.auto_commit():
             db.session.add(conn)
         return conn
-
-
-def get_current_user():
-    user = getattr(g, 'current_user', None)
-    if user:
-        return user
-
-    sid = session.get('sid')
-    if not sid:
-        return None
-
-    user = User.query.get(sid)
-    if not user:
-        User.logout()
-        return None
-
-    g.current_user = user
-    return user
-
-
-def fetch_token(name):
-    user = get_current_user()
-    conn = Connect.query.filter_by(
-        user_id=user.id, name=name).first()
-    return conn.to_dict()

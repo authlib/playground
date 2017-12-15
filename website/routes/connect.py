@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import url_for, abort, redirect
-from ..auth import require_login, current_user
-from ..models import oauth, Connect
+from ..auth import oauth, require_login, current_user
+from ..models import Connect
 
 bp = Blueprint('connect', __name__)
 
