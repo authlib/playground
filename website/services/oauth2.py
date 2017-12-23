@@ -55,7 +55,7 @@ class AuthorizationCodeGrant(_AuthorizationCodeGrant):
 
 
 class ImplicitGrant(_ImplicitGrant):
-    def create_access_token(self, token, client, grant_user, **kwargs):
+    def create_access_token(self, token, client, grant_user):
         item = OAuth2Token(
             client_id=client.client_id,
             user_id=grant_user.id,
@@ -66,14 +66,12 @@ class ImplicitGrant(_ImplicitGrant):
 
 
 class PasswordGrant(_PasswordGrant):
-    def authenticate_user(self):
-        username = self.params['username']
-        password = self.params['password']
+    def authenticate_user(self, username, password):
         user = User.query.filter_by(username=username).first()
         if user.check_password(password):
             return user
 
-    def create_access_token(self, token, client, user, **kwargs):
+    def create_access_token(self, token, client, user):
         item = OAuth2Token(
             client_id=client.client_id,
             user_id=user.id,
@@ -96,7 +94,7 @@ class ClientCredentialsGrant(_ClientCredentialsGrant):
 
 
 class RefreshTokenGrant(_RefreshTokenGrant):
-    def authenticate_token(self, refresh_token):
+    def authenticate_refresh_token(self, refresh_token):
         item = OAuth2Token.query.filter_by(refresh_token=refresh_token).first()
         if item and not item.is_refresh_token_expired():
             return item
@@ -113,24 +111,17 @@ class RefreshTokenGrant(_RefreshTokenGrant):
 
 
 class RevocationEndpoint(_RevocationEndpoint):
-    def _get_token(self, access_token=None, refresh_token=None):
-        q = OAuth2Token.query
-        if access_token:
-            item = q.filter_by(access_token=access_token).first()
-            if item:
-                return item
-        if refresh_token:
-            return q.filter_by(access_token=access_token).first()
-
     def query_token(self, token, token_type_hint, client):
+        q = OAuth2Token.query.filter_by(client_id=client.client_id)
         if token_type_hint == 'access_token':
-            item = self._get_token(access_token=token)
+            return q.filter_by(access_token=token).first()
         elif token_type_hint == 'refresh_token':
-            item = self._get_token(refresh_token=token)
-        else:
-            item = self._get_token(access_token=token, refresh_token=token)
-        if item and item.client_id == client.client_id:
+            return q.filter_by(refresh_token=token).first()
+        # without token_type_hint
+        item = q.filter_by(access_token=token).first()
+        if item:
             return item
+        return q.filter_by(refresh_token=token).first()
 
     def invalidate_token(self, token):
         db.session.delete(token)

@@ -1,26 +1,33 @@
 {% extends "base.html" %}
 
 {% block body %}
-  {% if user %}
-    <p>You have been logged in as <strong>{{ user.email }}</strong></p>
-  {% else %}
-    <p>Please log in with your <a href="{{ url_for('account.login') }}">Google account</a>.</p>
-  {% endif %}
-  {% if connects %}
-    <h2>Connected Services</h2>
-    <ul>
-      {% for conn in connects %}
-        <li>{{ conn.name }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+  <header class="head">
+    <div class="inner">
+      <h1>Authlib Playground</h1>
+      <p>Have a glimpse on OAuth clients and servers.</p>
+    </div>
+  </header>
+  <div class="account">
+    <div class="inner">
+      {% if user %}
+        <p>You are logged in as <strong>{{ user.name }}</strong></p>
+        <div class="account_actions">
+          <a href="" class="btn">Log Out</a>
+          <a href="" class="btn">Connects</a>
+          <a href="" class="btn">Apps</a>
+        </div>
+      {% else %}
+        <p>Log in Playground</p>
+        <div class="account_actions">
+          <a href="" class="btn">Log In</a>
+          <a href="" class="btn">Sign Up</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="intro">
+    <div class="inner">
 
-  {% if user %}
-    <h2>Connect or Re-Connect</h2>
-    <ul>
-      {% for name in services %}
-        <li><a href="{{ url_for('connect.bind', name=name) }}">{{ name }}</a></li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+    </div>
+  </div>
 {% endblock %}

@@ -47,6 +47,9 @@ class User(Base):
             db.session.add(user)
         return user
 
+    def to_dict(self):
+        return dict(id=self.id, name=self.name)
+
 
 class Connect(Base):
     __tablename__ = 'connect'
