@@ -1,0 +1,9 @@
+{
+  "base": {
+    "style": [
+      "/static/normalize.css",
+      "/static/base.css",
+      "/static/layout.css"
+    ]
+  }
+}

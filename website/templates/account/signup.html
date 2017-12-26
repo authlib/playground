@@ -1,0 +1,10 @@
+{% extends "account/base.html" %}
+{% from "macros.html" import render_form %}
+
+{% block form %}
+  <form action="" method="post">
+    {{ render_form(form) }}
+    <button class="btn">Sign Up</button>
+  </form>
+  <p>We won't send you any confirm emails.</p>
+{% endblock %}

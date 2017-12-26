@@ -1,0 +1,9 @@
+{% extends "account/base.html" %}
+{% from "macros.html" import render_form %}
+
+{% block form %}
+  <form action="" method="post">
+    {{ render_form(form) }}
+    <button class="btn">Log In</button>
+  </form>
+{% endblock %}

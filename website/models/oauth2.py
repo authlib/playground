@@ -19,6 +19,17 @@ class OAuth2Client(Base, OAuth2ClientMixin):
     user_id = Column(Integer, nullable=False)
     name = Column(String(48), nullable=False)
     website = Column(Text)
+    allowed_grants = Column(Text)
+
+    def check_response_type(self, response_type):
+        grant_maps = {'code': 'authorization_code', 'token': 'implicit'}
+        grant_type = grant_maps.get(response_type)
+        if not grant_type:
+            return False
+        return self.check_grant_type(grant_type)
+
+    def check_grant_type(self, grant_type):
+        return grant_type in self.allowed_grants.split()
 
 
 class OAuth2AuthorizationCode(Base, OAuth2AuthorizationCodeMixin):

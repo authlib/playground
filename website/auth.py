@@ -1,5 +1,8 @@
 from functools import wraps
 from authlib.flask.client import OAuth
+from authlib.client.apps import (
+    twitter, github, google, facebook
+)
 from werkzeug.local import LocalProxy
 from flask import g, session
 from flask import url_for, redirect, request
@@ -56,3 +59,11 @@ def require_login(f):
 
 
 oauth = OAuth(fetch_token=fetch_token)
+
+
+def init_app(app):
+    oauth.init_app(app)
+    google.register_to(oauth)
+    twitter.register_to(oauth)
+    github.register_to(oauth)
+    facebook.register_to(oauth)

@@ -139,4 +139,12 @@ authorization.register_grant_endpoint(RefreshTokenGrant)
 
 # support revocation
 authorization.register_revoke_token_endpoint(RevocationEndpoint)
+
+# scopes definition
+scopes = {
+    'email': 'Client can get your email address.',
+    'connects': 'Client can know your connected networks.'
+}
+
+# protect resource
 require_oauth = ResourceProtector(OAuth2Token.query_token)

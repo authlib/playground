@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  <style>
+    .account{max-width:480px;margin-top:100px}
+    .account-info{margin-top:60px;font-size:.86em}
+  </style>
+{% endblock %}
+
+{% block body %}
+  <div class="account inner">
+    <h1>Authlib Playground</h1>
+    <div class="account-form">
+      {% block form %}{% endblock %}
+    </div>
+    <div class="account-info">
+      <a href="/">Back to Home</a>
+    </div>
+  </div>
+{% endblock %}

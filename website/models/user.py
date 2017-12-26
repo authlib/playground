@@ -43,6 +43,7 @@ class User(Base):
         if user:
             return user
         user = cls(email=profile.email, name=profile.name)
+        user._password = '!'
         with db.auto_commit():
             db.session.add(user)
         return user

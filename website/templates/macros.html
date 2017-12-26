@@ -1,0 +1,30 @@
+{% macro render_field(field, label_html=None) %}
+  <div class="form-field{% if field.errors %} has-errors{% endif %}">
+    {% if label_html %}
+      <span><label>{{ label_html|safe }}</label></span>
+    {% else %}
+      <span>{{ field.label() }}</span>
+    {% endif %}
+    {% if field.flags.required %}
+      {{ field(class_="form-field_input", required=True) }}
+    {% else %}
+      {{ field(class_="form-field_input") }}
+    {% endif %}
+    {% if field.errors %}
+      <ul class="form-field_errors">
+        {% for error in field.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% macro render_form(form) %}
+  {% for field in form.hidden_fields() %}
+    {{ field }}
+  {% endfor %}
+  {% for field in form.visible_fields() %}
+    {{ render_field(field) }}
+  {% endfor %}
+{% endmacro %}

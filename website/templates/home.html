@@ -4,30 +4,51 @@
   <header class="head">
     <div class="inner">
       <h1>Authlib Playground</h1>
-      <p>Have a glimpse on OAuth clients and servers.</p>
+      <p>This is a playground for <a href="https://authlib.org">Authlib</a>. It contains OAuth clients and an OAuth 2 server.</p>
     </div>
   </header>
-  <div class="account">
+  <section class="section">
     <div class="inner">
       {% if user %}
         <p>You are logged in as <strong>{{ user.name }}</strong></p>
         <div class="account_actions">
-          <a href="" class="btn">Log Out</a>
+          <a href="{{ url_for('account.logout') }}" class="btn">Log Out</a>
           <a href="" class="btn">Connects</a>
           <a href="" class="btn">Apps</a>
         </div>
       {% else %}
-        <p>Log in Playground</p>
+        <p>You need to log in to play with Authlib.</p>
         <div class="account_actions">
-          <a href="" class="btn">Log In</a>
-          <a href="" class="btn">Sign Up</a>
+          <a href="{{ url_for('account.login') }}" class="btn">Log In</a>
+          <a href="{{ url_for('account.signup') }}" class="btn">Sign Up</a>
         </div>
       {% endif %}
     </div>
-  </div>
-  <div class="intro">
+  </section>
+  <section class="section">
     <div class="inner">
-
+      <p>This playground is an <a href="https://github.com/authlib/playground">open source</a> project.</p>
+      <p>To keep this playground sustainable, I need your support. Here are some ways for
+        donation:</p>
+      <div class="donation">
+        <h3>PayPal</h3>
+        <p>Donate via <a href="https://www.paypal.me/lepture">PayPal.me/lepture</a>.</p>
+      </div>
+      <div class="donation">
+        <h3>Stripe</h3>
+        <p>Support me via <a href="https://typlog.com/donate?reason=authlib/playground">Stripe</a>.</p>
+      </div>
+      <div class="donation">
+        <h3>Alipay & Weixin</h3>
+        <p>You can find my QR code on <a href="https://typlog.com/donate">Donation Page</a>.</p>
+      </div>
+      <p><strong>Please leave a message, I'll add your name into supporters' file.</strong></p>
     </div>
-  </div>
+  </section>
+  <footer class="section">
+    <div class="inner">
+      <p>A <a href="https://hsiaoming.com/">Hsiaoming</a>'s project.
+        Supported by these <a href="https://github.com/authlib/playground/blob/master/SUPPORTERS.md">awesome people</a>.</p>
+    </div>
+  </footer>
 {% endblock %}
