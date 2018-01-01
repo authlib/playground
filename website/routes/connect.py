@@ -1,9 +1,17 @@
-from flask import Blueprint
-from flask import url_for, abort, redirect
+from flask import Blueprint, url_for
+from flask import render_template, abort, redirect
 from ..auth import oauth, require_login, current_user
 from ..models import Connect
 
 bp = Blueprint('connect', __name__)
+
+
+@bp.route('')
+@require_login
+def list_connects():
+    q = Connect.query.filter_by(user_id=current_user.id)
+    connects = q.all()
+    return render_template('connects.html', connects=connects)
 
 
 @bp.route('/bind/<name>')
