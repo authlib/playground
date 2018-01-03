@@ -1,0 +1,19 @@
+SECRET_KEY = '{{ authlib_secret_key }}'
+SQLALCHEMY_DATABASE_URI = '{{ authlib_database_uri }}'
+
+ASSETS_FILE = '{{ authlib_conf_dir }}/assets.json'
+
+OAUTH_CLIENT_CACHE_TYPE = 'filesystem'
+OAUTH_CLIENT_CACHE_DIR = '/tmp/authlib'
+
+GOOGLE_CLIENT_KEY = '{{ google_client_id }}'
+GOOGLE_CLIENT_SECRET = '{{ google_client_secret }}'
+
+TWITTER_CLIENT_KEY = '{{ twitter_client_id }}'
+TWITTER_CLIENT_SECRET = '{{ twitter_client_secret }}'
+
+GITHUB_CLIENT_KEY = '{{ github_client_id }}'
+GITHUB_CLIENT_SECRET = '{{ github_client_secret }}'
+
+FACEBOOK_CLIENT_KEY = '{{ facebook_client_id }}'
+FACEBOOK_CLIENT_SECRET = '{{ facebook_client_secret }}'

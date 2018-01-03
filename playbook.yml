@@ -1,0 +1,25 @@
+---
+
+- hosts: authlib
+  become: true
+  become_user: root
+
+  roles:
+    - Stouts.nginx
+    - Stouts.python
+    - ANXS.postgresql
+    - webserver
+
+  vars:
+    supervisor_incdir: /etc/supervisor/conf.d
+    authlib_virtualenv: /var/venv/authlib
+    python_versions: [3.5]
+    python_virtualenv_user: web
+    python_virtualenvs:
+      - path: "{{ authlib_virtualenv }}"
+        python: python3.5
+
+    postgresql_version: 9.5
+    postgresql_ext_install_dev_headers: yes
+    postgresql_databases:
+      - name: authlib_playground

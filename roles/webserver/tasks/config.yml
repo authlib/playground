@@ -1,0 +1,22 @@
+---
+
+- name: Ensure authlib directory
+  file: path={{ item }} state=directory recurse=yes owner={{ authlib_user }}
+  with_items:
+    - "{{ authlib_source_dir }}"
+    - "{{ authlib_conf_dir }}"
+    - "{{ authlib_public_dir }}"
+
+- name: Add authlib gunicorn config
+  template: src=gunicorn_conf.j2 dest={{ authlib_conf_dir }}/gunicorn_conf.py
+
+- name: Add authlib app config
+  template: src=config.py.j2 dest={{ authlib_conf_dir }}/config.py
+
+- name: Add authlib supervisor config
+  template: src=supervisor.conf.j2 dest={{ supervisor_incdir }}/{{ authlib_app_name }}.conf
+
+- name: Add authlib nginx config
+  template: src=nginx.conf.j2 dest={{ nginx_sites_dir }}/{{ authlib_server_name }}
+  notify:
+    - nginx restart

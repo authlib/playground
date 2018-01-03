@@ -1,0 +1,41 @@
+server {
+  listen 80;
+  listen [::]:80;
+
+
+  server_name {{ authlib_server_name }};
+  charset utf-8;
+
+  access_log /var/log/nginx/{{ authlib_server_name }}.access.log;
+  error_log /var/log/nginx/{{ authlib_server_name }}.error.log;
+
+  root {{ authlib_public_dir }};
+
+  location ~* \.(gif|jpg|jpeg|png|ico)$ {
+    expires 30d;
+  }
+
+  location ~* \.(html|txt)$ {
+    expires 5d;
+  }
+
+  location / {
+    index index.html;
+    try_files $uri $uri/ $uri.html @app;
+  }
+
+  location @app {
+    proxy_pass http://{{ authlib_bind }};
+    proxy_http_version 1.1;
+    proxy_connect_timeout 300;
+    proxy_send_timeout 300;
+    proxy_read_timeout 300;
+    send_timeout 300;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-Proto $cf_scheme;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Port $server_port;
+  }
+}

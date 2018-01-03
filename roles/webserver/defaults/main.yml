@@ -1,0 +1,12 @@
+authlib_user: web
+
+authlib_app_name: playground
+authlib_server_name: play.authlib.org
+authlib_virtualenv: "/var/venv/authlib"
+
+authlib_base_dir: /code/authlib
+authlib_source_dir: "{{ authlib_base_dir }}/src"
+authlib_conf_dir: "{{ authlib_base_dir }}/conf"
+
+authlib_bind: "127.0.0.1:9106"
+authlib_database_uri: "postgresql://postgres@localhost/authlib_playground"

@@ -33,7 +33,7 @@ services and fill them into `conf/dev.config.py`.
 
 Please remember to set the right callback uri:
 
-1. Google: `http://127.0.0.1:5000/account/auth`
+1. Google: `http://127.0.0.1:5000/connect/authorize/google`
 2. Twitter: `http://127.0.0.1:5000/connect/authorize/twitter`
 3. Facebook: `http://127.0.0.1:5000/connect/authorize/facebook`
 4. GitHub: `http://127.0.0.1:5000/connect/authorize/github`
