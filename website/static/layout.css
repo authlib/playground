@@ -1,3 +1,11 @@
+.head a + a {
+  margin-left: 1em;
+}
+
 .section {
   margin: 2em 0;
+}
+
+.mini-form .form-field_input {
+  max-width: 480px;
 }

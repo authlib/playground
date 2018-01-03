@@ -1,0 +1,17 @@
+{% extends "account/base.html" %}
+{% from "macros.html" import render_form %}
+
+{% block form %}
+  <h2>OAuth 2 Authorization</h2>
+  <p>Client <strong>{{ client.name }}</strong> is requesting:</p>
+  <ul>
+    <li>Access to public resources.</li>
+    {% for scope in grant.scopes %}
+      <li>{{ scopes[scope] }}</li>
+    {% endfor %}
+  </ul>
+  <form action="" method="post">
+    {{ render_form(form) }}
+    <button class="btn">Authorize</button>
+  </form>
+{% endblock %}

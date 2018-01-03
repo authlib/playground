@@ -11,6 +11,26 @@
   {% block extrahead %}{% endblock %}
 </head>
 <body>
+{% block nav %}
+  <header class="head" style="margin-top:80px">
+    <div class="inner">
+      <h1>Authlib Playground</h1>
+      {% if current_user %}
+        <nav>
+          <a href="/">Home</a>
+          <a href="{{ url_for('client.list_clients') }}">Apps</a>
+          <a href="{{ url_for('connect.list_connects') }}">Connects</a>
+        </nav>
+      {% else %}
+        <nav>
+          <a href="https://authlib.org/">Authlib</a>
+          <a href="https://docs.authlib.org/">Documentation</a>
+          <a href="https://github.com/authlib/playground">GitHub</a>
+        </nav>
+      {% endif %}
+    </div>
+  </header>
+{% endblock %}
 {% block body %}{% endblock %}
 </body>
 </html>

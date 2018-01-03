@@ -142,9 +142,13 @@ authorization.register_revoke_token_endpoint(RevocationEndpoint)
 
 # scopes definition
 scopes = {
-    'email': 'Client can get your email address.',
-    'connects': 'Client can know your connected networks.'
+    'email': 'Access to your email address.',
+    'connects': 'Access to your connected networks.'
 }
 
 # protect resource
 require_oauth = ResourceProtector(OAuth2Token.query_token)
+
+
+def init_app(app):
+    authorization.init_app(app)

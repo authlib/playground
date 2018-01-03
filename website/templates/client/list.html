@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <section class="section">
+    <div class="inner">
+      <a href="{{ url_for('client.create_client') }}" class="btn">New App</a>
+      <div class="divide"></div>
+      {% for client in clients %}
+        <div class="client">
+          <h3><a href="{{ url_for('client.edit_client', client_id=client.client_id) }}">{{ client.name }}</a></h3>
+          {% if client.website %}
+            <p>{{ client.website }}</p>
+          {% endif %}
+          <ul>
+            <li>Client ID: <strong>{{ client.client_id }}</strong></li>
+            {% if client.client_secret %}
+              <li>Client Secret: <strong>{{ client.client_secret }}</strong></li>
+            {% endif %}
+            <li>Scopes: {{ client.allowed_scopes }}</li>
+            <li>Grants: {{ client.allowed_grants }}</li>
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

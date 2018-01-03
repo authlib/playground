@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% from "macros.html" import render_form %}
+
+{% block body %}
+  <section class="section">
+    <div class="inner">
+      <form class="mini-form" action="" method="post">
+        {{ render_form(form) }}
+        <button class="btn">Update</button>
+      </form>
+    </div>
+  </section>
+{% endblock %}

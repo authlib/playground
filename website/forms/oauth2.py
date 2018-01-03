@@ -1,4 +1,3 @@
-from flask_wtf import FlaskForm
 from wtforms.fields import (
     PasswordField,
     BooleanField,
@@ -6,11 +5,12 @@ from wtforms.fields import (
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired
 from wtforms.validators import StopValidation
+from .base import BaseForm
 from ..models import User
 from ..auth import login
 
 
-class ConfirmForm(FlaskForm):
+class ConfirmForm(BaseForm):
     confirm = BooleanField()
 
 

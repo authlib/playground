@@ -1,9 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask import jsonify, render_template
 from authlib.specs.rfc6749 import OAuth2Error
+from ..models import OAuth2Client
 from ..auth import current_user
 from ..forms.oauth2 import ConfirmForm, LoginConfirmForm
-from ..services.oauth2 import authorization
+from ..services.oauth2 import authorization, scopes
 
 
 bp = Blueprint('oauth2', __name__)
@@ -23,7 +24,6 @@ def authorize():
         else:
             grant_user = None
         return authorization.create_authorization_response(grant_user)
-
     try:
         grant = authorization.validate_authorization_request()
     except OAuth2Error as error:
@@ -31,10 +31,12 @@ def authorize():
         payload = dict(error.get_body())
         return jsonify(payload), error.status_code
 
+    client = OAuth2Client.get_by_client_id(request.args['client_id'])
     return render_template(
-        'oauth2/authorize.html',
-        user=current_user,
+        'account/authorize.html',
         grant=grant,
+        scopes=scopes,
+        client=client,
         form=form,
     )
 

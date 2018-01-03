@@ -26,6 +26,14 @@ a:hover {
   box-sizing: border-box;
 }
 
+.divide:after {
+  display: block;
+  margin: 40px 0;
+  content: '';
+  width: 100px;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+}
+
 .btn {
   display: inline-block;
   padding: .72em 1.2em;
@@ -68,6 +76,12 @@ a:hover {
   width: 100%;
   line-height: 1;
   padding: 8px;
+}
+
+.form-field_input[type="checkbox"] {
+  display: inline;
+  width: auto;
+  margin-left: 0.5em;
 }
 
 .form-field_input:hover,

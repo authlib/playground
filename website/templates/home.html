@@ -1,20 +1,14 @@
 {% extends "base.html" %}
 
 {% block body %}
-  <header class="head" style="margin-top:80px">
-    <div class="inner">
-      <h1>Authlib Playground</h1>
-      <p>This is a playground for <a href="https://authlib.org">Authlib</a>. It contains OAuth clients and an OAuth 2 server.</p>
-    </div>
-  </header>
   <section class="section">
     <div class="inner">
-      {% if user %}
-        <p>You are logged in as <strong>{{ user.name }}</strong></p>
+      {% if current_user %}
+        <p>You are logged in as <strong>{{ current_user.name }}</strong></p>
         <div class="account_actions">
           <a href="{{ url_for('account.logout') }}" class="btn">Log Out</a>
-          <a href="" class="btn">Connects</a>
-          <a href="" class="btn">Apps</a>
+          <a href="{{ url_for('client.list_clients') }}" class="btn">Apps</a>
+          <a href="{{ url_for('connect.list_connects') }}" class="btn">Connects</a>
         </div>
       {% else %}
         <p>You need to log in to play with Authlib.</p>
@@ -27,7 +21,8 @@
   </section>
   <section class="section">
     <div class="inner">
-      <p>This playground is an <a href="https://github.com/authlib/playground">open source</a> project.</p>
+      <p>This is a playground for <a href="https://authlib.org">Authlib</a>. It contains OAuth clients and an OAuth 2
+        server. It is an <a href="https://github.com/authlib/playground">open source</a> project.</p>
       <p>To keep this playground sustainable, I need your support. Here are some ways for
         donation:</p>
       <div class="donation">
@@ -48,7 +43,8 @@
   <footer class="section">
     <div class="inner">
       <p>A <a href="https://hsiaoming.com/">Hsiaoming</a>'s project.
-        Supported by these <a href="https://github.com/authlib/playground/blob/master/SUPPORTERS.md">awesome people</a>.</p>
+        Supported by these <a href="https://github.com/authlib/playground/blob/master/SUPPORTERS.md">awesome people</a>.
+      </p>
     </div>
   </footer>
 {% endblock %}

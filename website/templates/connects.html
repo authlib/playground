@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <section class="section">
+    <div class="inner">
+      {% for name in services %}
+        <div class="item">
+          <h2>{{ name }}</h2>
+          {% if name in connects %}
+            <p>Connected as <strong>{{ connects[name].sub }}</strong></p>
+            <div><a class="btn" href="{{ url_for('.bind', name=name) }}">Re-Connect</a></div>
+          {% else %}
+            <div><a class="btn" href="{{ url_for('.bind', name=name) }}">Connect</a></div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

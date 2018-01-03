@@ -60,13 +60,13 @@ class Connect(Base):
     OAUTH1_TOKEN_TYPE = 'oauth1.0'
 
     id = Column(Integer, primary_key=True)
+    sub = Column(String(255))
     user_id = Column(Integer, nullable=False)
     name = Column(String(20), nullable=False)
     token_type = Column(String(20))
     access_token = Column(String(255), nullable=False)
     # refresh_token or access_token_secret
     alt_token = Column(String(255))
-    extras = Column(Text)
     expires_at = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
@@ -85,26 +85,24 @@ class Connect(Base):
 
     @classmethod
     def create_token(cls, name, token, user):
-        data = token.copy()
         conn = cls.query.filter_by(user_id=user.id, name=name).first()
         if not conn:
             conn = cls(user_id=user.id, name=name)
 
-        if 'oauth_token' in data:
+        if 'oauth_token' in token:
             # save for OAuth 1
             conn.token_type = cls.OAUTH1_TOKEN_TYPE
-            conn.access_token = data.pop('oauth_token')
-            conn.alt_token = data.pop('oauth_token_secret')
-            conn.extras = json.dumps(data)
+            conn.access_token = token['oauth_token']
+            conn.alt_token = token['oauth_token_secret']
         else:
-            conn.access_token = data.pop('access_token')
-            conn.token_type = data.pop('token_type', '')
-            conn.alt_token = data.pop('refresh_token', '')
-            expires_in = data.pop('expires_in', 0)
+            conn.access_token = token['access_token']
+            conn.token_type = token.get('token_type', '')
+            conn.alt_token = token.get('refresh_token', '')
+            expires_in = token.get('expires_in', 0)
             if expires_in:
                 conn.expires_at = int(time.time()) + expires_in
-            conn.extras = json.dumps(data)
 
+        conn.sub = token['sub']
         with db.auto_commit():
             db.session.add(conn)
         return conn
