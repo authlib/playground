@@ -14,8 +14,10 @@ if is_dev:
         resp.headers['Cache-Control'] = 'no-store'
         resp.headers['Pragma'] = 'no-cache'
         return resp
-
-    with app.app_context():
-        db.create_all()
 else:
     app = create_app()
+
+
+@app.cli.command()
+def initdb():
+    db.create_all()
