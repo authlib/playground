@@ -11,12 +11,8 @@ server {
 
   root {{ web_public_dir }};
 
-  location ~* \.(js|css|gif|jpg|jpeg|png|ico)$ {
+  location /static/ {
     expires 30d;
-  }
-
-  location ~* \.(html|txt)$ {
-    expires 5d;
   }
 
   location / {

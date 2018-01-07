@@ -9,6 +9,7 @@
   {% for src in assets.base.styles %}
     <link rel="stylesheet" href="{{ src }}">
   {% endfor %}
+  <script>{% include "ga.js" %}</script>
   {% block extrahead %}{% endblock %}
 </head>
 <body>
