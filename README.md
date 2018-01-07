@@ -1,11 +1,36 @@
 # Authlib Playground
 
-This project is designed to be an online playground for
-[Authlib](https://authlib.org). It's not ready for a deployment at the
-moment, but you can play it locally by yourself.
+> An online playground for [Authlib](https://authlib.org).
+
+Play Authlib with <https://play.authlib.org/>.
 
 
-## Get Started
+## Dive into Authlib
+
+1. Create an account at <https://play.authlib.org/>
+2. Try Authlib client features with **Connects**
+3. Try Authlib OAuth servers with **Apps**
+
+## OAuth 2 Servers
+
+OAuth 2 Flask server is available from [Authlib 0.3](https://docs.authlib.org/en/v0.3/),
+you can play it with **Apps** in Authlib Playground.
+
+### Endpoints
+
+- Authorization Endpoint: `https://play.authlib.org/oauth2/authorize`
+- Token Endpoint: `https://play.authlib.org/oauth2/token`
+- Revocation Endpoint: `https://play.authlib.org/oauth2/revoke`
+
+### APIs
+
+- User profile (no scope): `https://play.authlib.org/api/2/me`
+- User email (scope: email): `https://play.authlib.org/api/2/me/email`
+- User connects (scope: connects): `https://play.authlib.org/api/2/connects`
+
+---
+
+## Local development
 
 To run this playground, you need to clone this repo at first:
 
@@ -14,8 +39,6 @@ To run this playground, you need to clone this repo at first:
 Create an virtualenv, and install the requirements:
 
     $ pip install -r requirements.txt
-
-## Configuration
 
 Copy the sample conf file in `conf` directory:
 
@@ -38,12 +61,8 @@ Please remember to set the right callback uri:
 3. Facebook: `http://127.0.0.1:5000/connect/authorize/facebook`
 4. GitHub: `http://127.0.0.1:5000/connect/authorize/github`
 
-## Run Server
-
 Run the example server with:
 
     $ export FLASK_APP=app.py
     $ export FLASK_DEBUG=1
     $ flask run
-
-I'll deploy it online in the future.
