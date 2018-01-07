@@ -1,6 +1,6 @@
 {
   "base": {
-    "style": [
+    "styles": [
       "/static/normalize.css",
       "/static/base.css",
       "/static/layout.css"

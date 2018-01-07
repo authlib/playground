@@ -11,7 +11,7 @@ server {
 
   root {{ web_public_dir }};
 
-  location ~* \.(gif|jpg|jpeg|png|ico)$ {
+  location ~* \.(js|css|gif|jpg|jpeg|png|ico)$ {
     expires 30d;
   }
 
