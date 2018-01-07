@@ -100,4 +100,4 @@ def flask(cmd):
 
 def restart():
     env.user = 'lepture'
-    run('sudo supervisorctl pid playground | xargs kill -s HUP')
+    run('sudo supervisorctl pid playground | sudo xargs kill -s HUP')
