@@ -1,0 +1,4 @@
+---
+
+- name: Copy cloudflare conf
+  copy: src=cloudflare.conf dest=/etc/nginx/conf.d/cloudflare.conf

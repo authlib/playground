@@ -1,6 +1,6 @@
 # coding: utf-8
 
-bind = '{{ authlib_bind }}'
+bind = '{{ web_bind }}'
 workers = 2
 
 timeout = 30
@@ -8,7 +8,7 @@ timeout = 30
 max_requests = 1000
 max_requests_jitter = 500
 
-proc_name = '{{ authlib_app_name }}'
+proc_name = '{{ web_app }}'
 
 accesslog = None
 errorlog = '-'

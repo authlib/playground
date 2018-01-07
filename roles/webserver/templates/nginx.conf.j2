@@ -3,13 +3,13 @@ server {
   listen [::]:80;
 
 
-  server_name {{ authlib_server_name }};
+  server_name {{ web_server_name }};
   charset utf-8;
 
-  access_log /var/log/nginx/{{ authlib_server_name }}.access.log;
-  error_log /var/log/nginx/{{ authlib_server_name }}.error.log;
+  access_log /var/log/nginx/{{ web_server_name }}.access.log;
+  error_log /var/log/nginx/{{ web_server_name }}.error.log;
 
-  root {{ authlib_public_dir }};
+  root {{ web_public_dir }};
 
   location ~* \.(gif|jpg|jpeg|png|ico)$ {
     expires 30d;
@@ -25,7 +25,7 @@ server {
   }
 
   location @app {
-    proxy_pass http://{{ authlib_bind }};
+    proxy_pass http://{{ web_bind }};
     proxy_http_version 1.1;
     proxy_connect_timeout 300;
     proxy_send_timeout 300;

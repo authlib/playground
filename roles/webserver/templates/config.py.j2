@@ -1,10 +1,10 @@
-SECRET_KEY = '{{ authlib_secret_key }}'
-SQLALCHEMY_DATABASE_URI = '{{ authlib_database_uri }}'
+SECRET_KEY = '{{ secret_key }}'
+SQLALCHEMY_DATABASE_URI = '{{ web_database_uri }}'
 
-ASSETS_FILE = '{{ authlib_conf_dir }}/assets.json'
+ASSETS_FILE = '{{ web_conf_dir }}/assets.json'
 
 OAUTH_CLIENT_CACHE_TYPE = 'filesystem'
-OAUTH_CLIENT_CACHE_DIR = '/tmp/authlib'
+OAUTH_CLIENT_CACHE_DIR = '/tmp/playground'
 
 GOOGLE_CLIENT_KEY = '{{ google_client_id }}'
 GOOGLE_CLIENT_SECRET = '{{ google_client_secret }}'

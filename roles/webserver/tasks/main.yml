@@ -1,0 +1,7 @@
+---
+
+- import_tasks: install.yml
+  tags: [web, install]
+
+- import_tasks: config.yml
+  tags: [web, deploy]

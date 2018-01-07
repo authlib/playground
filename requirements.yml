@@ -1,7 +1,5 @@
 - src: https://github.com/Stouts/Stouts.nginx
   version: 2.1.2
-- src: https://github.com/Stouts/Stouts.python
-  version: 2.2.2
 - src: https://github.com/ANXS/postgresql
   name: ANXS.postgresql
   version: v1.9.0

@@ -1,0 +1,32 @@
+---
+
+- name: Install system packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - build-essential
+    - libffi-dev
+    - libssl-dev
+    - supervisor
+    - python-virtualenv
+    - git
+
+- name: Create web user
+  user:
+    name: "{{ web_user }}"
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+
+
+- name: Install python-dev
+  apt: name=python{{item}}-dev state=present
+  with_items: "{{ python_versions }}"
+
+- name: Ensure virtualenv directory
+  file: path={{ item.path }} state=directory recurse=yes owner={{ web_user }}
+  with_items: "{{ python_virtualenvs }}"
+
+- name: Setup virtualenvs
+  shell: virtualenv {{item.path}} --python={{item.python|default('python')}}
+  with_items: "{{ python_virtualenvs }}"
+  become_user: "{{ web_user }}"

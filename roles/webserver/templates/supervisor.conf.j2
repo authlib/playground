@@ -1,0 +1,15 @@
+[program:{{ web_app }}]
+user={{ web_user }}
+command={{ web_virtualenv }}/bin/gunicorn -k gevent -c gunicorn_conf.py wsgi:app
+directory={{ web_conf_dir }}
+environment=WEBSITE_CONF="{{ web_conf_dir }}/config.py",PYTHONPATH="{{ web_source_dir }}/playground"
+autostart=true
+autorestart=true
+stopsignal=TERM
+
+stdout_logfile=/var/log/supervisor/{{ web_server_name }}.log
+stdout_logfile_maxbytes=50MB
+stdout_logfile_backups=5
+redirect_stderr=true
+stopwaitsecs=60
+killasgroup=true
