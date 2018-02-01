@@ -1,8 +1,6 @@
 from flask import Blueprint, url_for
 from flask import render_template, abort, redirect
-from authlib.client.apps import (
-    twitter, facebook, google, github,
-)
+from authlib.client.apps import get_app
 from ..auth import oauth, require_login, current_user
 from ..models import Connect
 
@@ -42,12 +40,7 @@ def authorize(name):
 
 
 def _get_service_or_404(name):
-    services = {
-        'twitter': twitter,
-        'google': google,
-        'github': github,
-        'facebook': facebook,
-    }
-    if name not in oauth._registry:
+    service = get_app(name)
+    if not service:
         abort(404)
-    return services[name]
+    return service
