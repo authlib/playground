@@ -33,8 +33,8 @@ def bind(name):
 def authorize(name):
     service = _get_service_or_404(name)
     token = service.authorize_access_token()
-    user_info = service.fetch_user()
-    token['sub'] = user_info.id
+    user_info = service.profile()
+    token['sub'] = user_info.sub
     Connect.create_token(name, token, current_user)
     return redirect(url_for('.list_connects'))
 
