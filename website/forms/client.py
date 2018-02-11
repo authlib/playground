@@ -25,6 +25,14 @@ class Client1Form(BaseForm):
     website = URLField()
     default_redirect_uri = URLField()
 
+    def update(self, client):
+        client.name = self.name.data
+        client.website = self.website.data
+        client.default_redirect_uri = self.default_redirect_uri.data
+        with db.auto_commit():
+            db.session.add(client)
+        return client
+
     def save(self, user):
         name = self.name.data
         client_id = gen_salt(48)

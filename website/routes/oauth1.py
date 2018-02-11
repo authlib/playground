@@ -24,14 +24,16 @@ def authorize():
         else:
             grant_user = None
         return authorization.create_authorization_response(grant_user)
+
     try:
-        grant = authorization.validate_authorization_request()
+        grant = authorization.check_authorization_request()
     except OAuth1Error as error:
         # TODO: add an error page
         payload = dict(error.get_body())
         return jsonify(payload), error.status_code
 
-    client_id = request.args['client_id']
+    credential = grant.credential
+    client_id = credential.get_client_id()
     client = OAuth1Client.query.filter_by(client_id=client_id).first()
     return render_template(
         'account/authorize.html',

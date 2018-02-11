@@ -23,6 +23,9 @@ class User(Base):
         onupdate=datetime.datetime.utcnow,
     )
 
+    def get_user_id(self):
+        return self.id
+
     @property
     def password(self):
         return self._password
