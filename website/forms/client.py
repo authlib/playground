@@ -9,7 +9,7 @@ from wtforms.validators import DataRequired
 from werkzeug.security import gen_salt
 from .base import BaseForm
 from ..services.oauth2 import scopes
-from ..models import db, OAuth2Client
+from ..models import db, OAuth1Client, OAuth2Client
 
 SCOPES = [(k, k) for k in scopes]
 GRANTS = [
@@ -18,6 +18,29 @@ GRANTS = [
     ('password', 'Password'),
     ('client_credential', 'Client Credential')
 ]
+
+
+class Client1Form(BaseForm):
+    name = StringField(validators=[DataRequired()])
+    website = URLField()
+    default_redirect_uri = URLField()
+
+    def save(self, user):
+        name = self.name.data
+        client_id = gen_salt(48)
+        client_secret = gen_salt(78)
+
+        client = OAuth1Client(
+            user_id=user.id,
+            client_id=client_id,
+            client_secret=client_secret,
+            name=name,
+            default_redirect_uri=self.default_redirect_uri.data,
+            website=self.website.data,
+        )
+        with db.auto_commit():
+            db.session.add(client)
+        return client
 
 
 class OAuth2ClientWrapper(object):
@@ -32,7 +55,7 @@ class OAuth2ClientWrapper(object):
         self.allowed_grants = client.allowed_grants.split()
 
 
-class ClientForm(BaseForm):
+class Client2Form(BaseForm):
     name = StringField(validators=[DataRequired()])
     website = URLField()
     is_confidential = BooleanField('Confidential Client')
