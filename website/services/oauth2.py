@@ -2,6 +2,10 @@ from authlib.flask.oauth2 import (
     AuthorizationServer,
     ResourceProtector,
 )
+from authlib.flask.oauth2.sqla import (
+    create_query_token_func,
+    create_query_client_func,
+)
 from authlib.specs.rfc6749.grants import (
     AuthorizationCodeGrant as _AuthorizationCodeGrant,
     ImplicitGrant as _ImplicitGrant,
@@ -128,7 +132,8 @@ class RevocationEndpoint(_RevocationEndpoint):
         db.session.commit()
 
 
-authorization = AuthorizationServer(OAuth2Client)
+query_client = create_query_client_func(db.session, OAuth2Client)
+authorization = AuthorizationServer(query_client=query_client)
 
 # support all grants
 authorization.register_grant_endpoint(AuthorizationCodeGrant)
@@ -147,7 +152,8 @@ scopes = {
 }
 
 # protect resource
-require_oauth = ResourceProtector(OAuth2Token.query_token)
+query_token = create_query_token_func(db.session, OAuth2Token)
+require_oauth = ResourceProtector(query_token=query_token)
 
 
 def init_app(app):
