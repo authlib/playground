@@ -1,11 +1,10 @@
 import time
 import datetime
-from flask import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column
 from sqlalchemy import UniqueConstraint
 from sqlalchemy import (
-    Integer, String, DateTime, Text
+    Integer, String, DateTime
 )
 from .base import db, Base
 

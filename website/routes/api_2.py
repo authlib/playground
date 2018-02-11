@@ -4,7 +4,7 @@ from authlib.flask.oauth2 import current_token
 from ..models import db, User, Connect
 from ..services.oauth2 import require_oauth
 
-bp = Blueprint('api', __name__)
+bp = Blueprint('api_2', __name__)
 
 
 @bp.route('/me')
