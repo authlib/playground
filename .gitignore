@@ -19,6 +19,7 @@ dist
 eggs
 parts
 node_modules/
+/_cache
 /data
 /public/
 /roles/*.*

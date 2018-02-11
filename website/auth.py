@@ -4,7 +4,7 @@ from authlib.client.apps import register_apps
 from werkzeug.local import LocalProxy
 from flask import g, session
 from flask import url_for, redirect, request
-from .models import User, Connect
+from .models import User, Connect, cache
 
 
 def login(user, permanent=True):
@@ -56,7 +56,7 @@ def require_login(f):
     return decorated
 
 
-oauth = OAuth(fetch_token=fetch_token)
+oauth = OAuth(cache=cache, fetch_token=fetch_token)
 
 
 def init_app(app):

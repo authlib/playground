@@ -3,8 +3,7 @@ SQLALCHEMY_DATABASE_URI = '{{ web_database_uri }}'
 
 ASSETS_FILE = '{{ web_conf_dir }}/assets.json'
 
-OAUTH_CLIENT_CACHE_TYPE = 'filesystem'
-OAUTH_CLIENT_CACHE_DIR = '/tmp/playground'
+OAUTH_CACHE_DIR = '/tmp/playground'
 
 GOOGLE_CLIENT_ID = '{{ google_client_id }}'
 GOOGLE_CLIENT_SECRET = '{{ google_client_secret }}'
