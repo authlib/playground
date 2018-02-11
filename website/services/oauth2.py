@@ -24,13 +24,13 @@ from ..models import (
 
 
 class AuthorizationCodeGrant(_AuthorizationCodeGrant):
-    def create_authorization_code(self, client, user, **kwargs):
+    def create_authorization_code(self, client, user, request):
         code = gen_salt(48)
         item = OAuth2AuthorizationCode(
             code=code,
             client_id=client.client_id,
-            redirect_uri=kwargs.get('redirect_uri', ''),
-            scope=kwargs.get('scope', ''),
+            redirect_uri=request.redirect_uri,
+            scope=request.scope,
             user_id=user.id,
         )
         db.session.add(item)
