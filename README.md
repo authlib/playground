@@ -11,10 +11,9 @@ Play Authlib with <https://play.authlib.org/>.
 2. Try Authlib client features with **Connects**
 3. Try Authlib OAuth servers with **Apps**
 
-## OAuth 2 Servers
+## OAuth 2 Server
 
-OAuth 2 Flask server is available from [Authlib 0.3](https://docs.authlib.org/en/v0.3/),
-you can play it with **Apps** in Authlib Playground.
+Read the documentation on [OAuth 2 Flask server](https://docs.authlib.org/en/latest/flask/oauth2.html).
 
 ### Endpoints
 
@@ -27,6 +26,20 @@ you can play it with **Apps** in Authlib Playground.
 - User profile (no scope): `https://play.authlib.org/api/2/me`
 - User email (scope: email): `https://play.authlib.org/api/2/me/email`
 - User connects (scope: connects): `https://play.authlib.org/api/2/connects`
+
+## OAuth 1 Server
+
+Read the documentation on [OAuth 1 Flask server](https://docs.authlib.org/en/latest/flask/oauth1.html).
+
+### Endpoints
+
+- Authorization Endpoint: `https://play.authlib.org/oauth1/authorize`
+- Temporary Credentials Endpoint: `https://play.authlib.org/oauth1/init`
+- Token Credentials Endpoint: `https://play.authlib.org/oauth1/token`
+
+### APIs
+
+- User profile: `https://play.authlib.org/api/1/me`
 
 ---
 
