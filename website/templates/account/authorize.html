@@ -4,7 +4,7 @@
 {% block form %}
   <h2>Authorization</h2>
   <p>Client <strong>{{ client.name }}</strong> is requesting:</p>
-  {% if scopes is defined %}
+  {% if scopes is defined and grant.scopes %}
     <ul>
       <li>Access to public resources.</li>
       {% for scope in grant.scopes %}

@@ -24,7 +24,6 @@ def build():
 
     def _build_assets(key, assets):
         print('Build: {}'.format(key))
-        styles = assets.get('styles', [])
         css = ''
         for name in assets['styles']:
             file_path = 'website{}'.format(name)
