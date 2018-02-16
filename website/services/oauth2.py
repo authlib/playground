@@ -71,7 +71,7 @@ class ImplicitGrant(_ImplicitGrant):
 
 class PasswordGrant(_PasswordGrant):
     def authenticate_user(self, username, password):
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(email=username).first()
         if user.check_password(password):
             return user
 

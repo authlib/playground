@@ -16,7 +16,7 @@ GRANTS = [
     ('authorization_code', 'Authorization Code'),
     ('implicit', 'Implicit'),
     ('password', 'Password'),
-    ('client_credential', 'Client Credential')
+    ('client_credentials', 'Client Credentials')
 ]
 
 
