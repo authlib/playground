@@ -92,7 +92,7 @@ class Client2Form(BaseForm):
         if is_confidential:
             client_secret = gen_salt(78)
         else:
-            client_secret = None
+            client_secret = ''
 
         client = OAuth2Client(
             user_id=user.id,
