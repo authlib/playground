@@ -6,8 +6,7 @@ from authlib.flask.oauth1.sqla import (
     OAuth1ClientMixin,
     OAuth1TokenCredentialMixin,
 )
-
-from .base import Base
+from ..models import Base
 
 
 class OAuth1Client(Base, OAuth1ClientMixin):

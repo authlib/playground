@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask import jsonify
 from authlib.flask.oauth1 import current_credential
 from ..models import User
-from ..services.oauth1 import require_oauth
+from ..oauth1 import require_oauth
 
 bp = Blueprint('api_1', __name__)
 

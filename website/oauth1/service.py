@@ -12,7 +12,8 @@ from authlib.flask.oauth1.cache import (
     register_temporary_credential_hooks,
     register_nonce_hooks,
 )
-from ..models import db, cache, OAuth1Client, OAuth1Token
+from .models import OAuth1Client, OAuth1Token
+from ..models import db, cache
 
 
 query_client = create_query_client_func(db.session, OAuth1Client)
@@ -27,7 +28,7 @@ require_oauth = ResourceProtector(
 )
 
 
-def init_app(app):
+def config_service(app):
     authorization.init_app(app)
     register_nonce_hooks(authorization, cache)
     register_temporary_credential_hooks(authorization, cache)

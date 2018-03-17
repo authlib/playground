@@ -9,7 +9,7 @@ from authlib.flask.oauth2.sqla import (
     OAuth2TokenMixin,
 )
 
-from .base import Base
+from ..models import Base
 
 
 class OAuth2Client(Base, OAuth2ClientMixin):

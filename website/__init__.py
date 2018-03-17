@@ -1,16 +1,15 @@
 from flask import json
 from ._flask import create_flask_app
 from .models import db
-from .services import oauth1, oauth2
-from . import auth, routes
+from . import auth, routes, oauth1, oauth2
 
 
 def create_app(config=None):
     app = create_flask_app(config)
     db.init_app(app)
     auth.init_app(app)
-    oauth1.init_app(app)
-    oauth2.init_app(app)
+    oauth1.init_app(app, '/oauth1')
+    oauth2.init_app(app, '/oauth2')
     routes.init_app(app)
     register_hook(app)
     return app
