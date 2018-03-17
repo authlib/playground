@@ -8,8 +8,10 @@ from wtforms.fields.html5 import URLField
 from wtforms.validators import DataRequired
 from werkzeug.security import gen_salt
 from .base import BaseForm
-from ..services.oauth2 import scopes
-from ..models import db, OAuth1Client, OAuth2Client
+from ..oauth1.models import OAuth1Client
+from ..oauth2.models import OAuth2Client
+from ..oauth2.service import scopes
+from ..models import db
 
 SCOPES = [(k, k) for k in scopes]
 GRANTS = [
