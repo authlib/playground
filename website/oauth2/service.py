@@ -1,6 +1,4 @@
-from authlib.flask.oauth2 import (
-    AuthorizationServer, ResourceProtector,
-)
+from authlib.flask.oauth2 import AuthorizationServer, ResourceProtector
 from authlib.flask.oauth2.sqla import (
     create_query_client_func,
     create_save_token_func,
@@ -105,5 +103,5 @@ def config_service(app):
     authorization.register_endpoint(revocation_cls)
 
     # protect resource
-    bearer_validator = create_bearer_token_validator(db.session, OAuth2Token)
-    require_oauth.register_token_validator('bearer', bearer_validator())
+    bearer_cls = create_bearer_token_validator(db.session, OAuth2Token)
+    require_oauth.register_token_validator(bearer_cls())
